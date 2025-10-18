@@ -1,0 +1,11 @@
+.infoSection {
+  background-color: #f9f9f9;
+  padding: 24px;
+  margin-bottom: 24px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.infoSection strong {
+  color: black;
+}
