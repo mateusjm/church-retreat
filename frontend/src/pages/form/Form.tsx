@@ -156,7 +156,7 @@ function Form() {
     <div className={styles.container}>
       <div className={styles.formWrapper}>
         <FormHeader
-          imageSrc="/retiro.png"
+          imageSrc="/retiro.jpeg"
           title="Inscrição Retiro Ponte Nova - 2026"
           subtitle={
             <>

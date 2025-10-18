@@ -6,7 +6,7 @@ export const RetreatInfo = () => {
       <p>
         <strong>É IMPORTANTE RESSALTAR QUE O VALOR DO RETIRO É:</strong>
         <br />
-        1º LOTE: até 31/12/2025– R$ 250,00
+        1º LOTE: até 31/12/2025 – R$ 250,00
         <br />
         2º LOTE: a partir de 01/01/2026 –{" "}
         R$ 300,00
