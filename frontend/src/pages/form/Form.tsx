@@ -1,7 +1,7 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Form.module.css";
-import { Button } from "@mui/material";
+import { CustomButton } from "@/components/form/CustomButton.tsx";
 import { InputField } from "@/components/form/InputField.tsx";
 import { SelectField } from "@/components/form/SelectField.tsx";
 import { FormHeader } from "@/components/form/FormHeader.tsx";
@@ -11,9 +11,12 @@ import { NumberSelectField } from "@/components/form/NumberSelectField.tsx";
 import asaas from "@/services/asaas";
 import { useFormContext } from "@/contexts/FormContext.tsx";
 import { RetreatInfo } from "@/components/form/RetreatInfo.tsx";
+import { getServerTime } from "@/services/serverTimeService.tsx";
 
 function Form() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverDate, setServerDate] = useState<Date | null>(null);
+
   const navigate = useNavigate();
   const { sendData } = useGoogleSheets(import.meta.env.VITE_GOOGLE_SHEET_URL);
   const { form, setForm } = useFormContext();
@@ -24,11 +27,6 @@ function Form() {
   const lodgingOptions = ["Barraca", "Alojamento", "Casa própria"];
   const ageOptions = ["0-5", "6-11", "Adulto"];
   const billingTypeOptions = ["UNDEFINED", "BOLETO", "CREDIT_CARD", "PIX"];
-  const dueDate = new Date().toISOString().split("T")[0];
-
-  const loteDataLimite = new Date("2025-12-31T23:59:59");
-  const hoje = new Date();
-  const valorAtual = hoje <= loteDataLimite ? 250 : 300;
 
   const monthInstallmentsMap: Record<number, number> = {
     10: 4,
@@ -38,17 +36,34 @@ function Form() {
     2: 1,
   };
 
-  const currentMonth = new Date().getMonth() + 1;
-  const maxInstallments = monthInstallmentsMap[currentMonth] || 1;
-  const installmentCountOptions = Array.from(
-    { length: maxInstallments },
-    (_, i) => i + 1
-  );
-
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState<"success" | "error">(
     "success"
+  );
+
+  useEffect(() => {
+    async function fetchServerTime() {
+      const date = await getServerTime();
+      setServerDate(date);
+    }
+    fetchServerTime();
+  }, []);
+
+  const valorAtual =
+    serverDate && serverDate <= new Date("2025-12-31T23:59:59") ? 250 : 300;
+
+  const dueDate =
+    serverDate?.toISOString().split("T")[0] ||
+    new Date().toISOString().split("T")[0];
+
+  const currentMonth = serverDate
+    ? serverDate.getMonth() + 1
+    : new Date().getMonth() + 1;
+  const maxInstallments = monthInstallmentsMap[currentMonth] || 1;
+  const installmentCountOptions = Array.from(
+    { length: maxInstallments },
+    (_, i) => i + 1
   );
 
   const handleChange = (name: string, value: string | number | null) => {
@@ -61,6 +76,7 @@ function Form() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (!serverDate) return;
     if (isSubmitting) return;
     setIsSubmitting(true);
 
@@ -121,7 +137,7 @@ function Form() {
       });
 
       setSnackbarMessage(
-        `Formulário enviado com sucesso! Valor: R$ ${valorAtual},00`
+        `Formulário enviado com sucesso!`
       );
       setSnackbarSeverity("success");
       setSnackbarOpen(true);
@@ -239,21 +255,9 @@ function Form() {
               onChange={handleChange}
             />
           )}
-          <Button
-            type="submit"
-            variant="contained"
-            style={{ backgroundColor: "black" }}
-            fullWidth
-            disabled={isSubmitting}
-            sx={{
-              marginTop: 2,
-              paddingY: 1,
-              textTransform: "none",
-              fontSize: "1rem",
-            }}
-          >
-            {isSubmitting ? "Enviando..." : "Enviar"}
-          </Button>
+          <CustomButton type="submit" isSubmitting={isSubmitting} fullWidth>
+            Enviar
+          </CustomButton>
         </form>
         <SnackbarMessage
           open={snackbarOpen}

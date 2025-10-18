@@ -56,22 +56,6 @@
   border-color: #1a73e8;
 }
 
-.button {
-  margin-top: 10px;
-  background-color: #1a73e8;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 12px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.button:hover {
-  background-color: #1669c1;
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
