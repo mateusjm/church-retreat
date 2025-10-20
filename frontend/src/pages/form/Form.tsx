@@ -18,7 +18,7 @@ function Form() {
   const [serverDate, setServerDate] = useState<Date | null>(null);
 
   const navigate = useNavigate();
-  const { sendData } = useGoogleSheets(import.meta.env.VITE_GOOGLE_SHEET_URL);
+  const { sendData } = useGoogleSheets();
   const { form, setForm } = useFormContext();
 
   const sexOptions = ["Masculino", "Feminino"];

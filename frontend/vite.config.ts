@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 
 const GOOGLE_SHEET_URL =
-  "https://script.google.com/macros/s/AKfycbyeyMRwY5bBvC_B4cBN500-BsKo997JyWto5jP0CypCaZg0PL6AfjLeUpjmK6eOZE4i/exec";
+  "https://script.google.com/macros/s/AKfycbzOpFJiPuTl9Y8RNxiJw0WoicPA_4dQOyB4EyksGhMctxFMWsAuHitvNc7q_MESrNeTOQ/exec";
 
 export default defineConfig({
   plugins: [tailwindcss(), react()],

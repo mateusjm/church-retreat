@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 
-export const useGoogleSheets = (url: string, cooldown = 2000) => {
+export const useGoogleSheets = (cooldown = 2000) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -24,7 +24,7 @@ export const useGoogleSheets = (url: string, cooldown = 2000) => {
     try {
       console.log( "Enviando para Google Sheets:", data.sheetName, data);
 
-      const res = await axios.post(url, data, {
+      const res = await axios.post("/api", data, {
         headers: { "Content-Type": "application/json" },
       });
 
