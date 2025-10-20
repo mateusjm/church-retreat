@@ -4,17 +4,16 @@ import { FormHeader } from "@/components/form/FormHeader.tsx";
 
 function Confirmation() {
   const { form } = useFormContext();
+  const isIsento = form.age === "0-5";
 
   return (
     <div className={styles.container}>
       <div className={styles.formWrapper}>
-        <FormHeader
-          imageSrc="/retiro.png"
-          title=""
-        />
+        <FormHeader imageSrc="/retiro.png" title="" />
         <div className={styles.form} style={{ textAlign: "center" }}>
           <h2>Obrigado! Sua inscrição foi finalizada. 🎉</h2>
-          {form.invoiceUrl ? (
+
+          {!isIsento && form.invoiceUrl && (
             <p>
               Segue o link da fatura abaixo: <br />
               <a
@@ -26,8 +25,10 @@ function Confirmation() {
                 Acessar Fatura
               </a>
             </p>
-          ) : (
-            <p>Link da fatura não encontrado.</p>
+          )}
+
+          {isIsento && (
+            <p>Participação gratuita para crianças de 0 a 5 anos. 💚</p>
           )}
         </div>
       </div>

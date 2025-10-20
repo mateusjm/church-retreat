@@ -25,7 +25,7 @@ function Form() {
   const maritalStatusOptions = ["Solteiro", "Casado"];
   const ageGroupOptions = ["4-6", "7-9", "10-12", "Não se aplica"];
   const lodgingOptions = ["Barraca", "Alojamento", "Casa própria"];
-  const ageOptions = ["0-5", "6-11", "Adulto"];
+  const ageOptions = ["0-5", "6-11", "12-14", "15-75", "75+"];
   const billingTypeOptions = ["UNDEFINED", "BOLETO", "CREDIT_CARD", "PIX"];
 
   const monthInstallmentsMap: Record<number, number> = {
@@ -50,8 +50,26 @@ function Form() {
     fetchServerTime();
   }, []);
 
-  const valorAtual =
-    serverDate && serverDate <= new Date("2025-12-31T23:59:59") ? 250 : 300;
+  const getValorPorIdade = (idade: string, data: Date) => {
+    const isPromocional = data <= new Date("2025-12-31T23:59:59");
+
+    switch (idade) {
+      case "0-5":
+        return 0;
+      case "6-11":
+        return isPromocional ? 85 : 100;
+      case "12-14":
+        return isPromocional ? 125 : 150;
+      case "15-75":
+        return isPromocional ? 250 : 300;
+      case "75+":
+        return isPromocional ? 125 : 150;
+      default:
+        return isPromocional ? 250 : 300;
+    }
+  };
+
+  const valorAtual = serverDate ? getValorPorIdade(form.age, serverDate) : 0;
 
   const dueDate =
     serverDate?.toISOString().split("T")[0] ||
@@ -81,49 +99,59 @@ function Form() {
     setIsSubmitting(true);
 
     try {
-      const customerResponse = await asaas.createClient(
-        form.name,
-        form.cpf,
-        form.email
-      );
-      const customer = customerResponse.id;
+      let customer = null;
+      let lastPayment = null;
+      let allPayments: any[] = [];
 
-      const installmentCount =
-        form.billingType === "CREDIT_CARD" ? form.installmentCount! : null;
-      const paymentPayload =
-        form.billingType === "CREDIT_CARD"
-          ? { totalValue: valorAtual, installmentCount }
-          : { value: valorAtual };
+      if (form.age !== "0-5") {
+        const customerResponse = await asaas.createClient(
+          form.name,
+          form.cpf,
+          form.email
+        );
+        customer = customerResponse.id;
 
-      const lastPayment = await asaas.createPayment(
-        customer,
-        form.billingType,
-        dueDate,
-        paymentPayload.installmentCount ?? null,
-        paymentPayload.totalValue ?? paymentPayload.value
-      );
+        const installmentCount =
+          form.billingType === "CREDIT_CARD" ? form.installmentCount! : null;
 
-      const allPayments = await asaas.listPayments(customer);
+        const paymentPayload =
+          form.billingType === "CREDIT_CARD"
+            ? { totalValue: valorAtual, installmentCount }
+            : { value: valorAtual };
 
+        lastPayment = await asaas.createPayment(
+          customer,
+          form.billingType,
+          dueDate,
+          paymentPayload.installmentCount ?? null,
+          paymentPayload.totalValue ?? paymentPayload.value
+        );
+
+        allPayments = await asaas.listPayments(customer);
+      }
+      
       const payload = {
         resumo: {
           ...form,
           customer,
-          paymentId: lastPayment.id,
-          invoiceUrl: lastPayment.invoiceUrl,
-          status: lastPayment.status,
+          paymentId: lastPayment?.id || null,
+          invoiceUrl: lastPayment?.invoiceUrl || null,
+          status: lastPayment?.status || "ISENTO",
           valor: valorAtual,
         },
-        pagamentos: allPayments.map((p) => ({
-          customer,
-          paymentId: p.id,
-          name: form.name,
-          lastName: form.lastName,
-          description: p.description,
-          invoiceUrl: p.invoiceUrl,
-          status: p.status,
-          valor: valorAtual,
-        })),
+        pagamentos:
+          allPayments.length > 0
+            ? allPayments.map((p) => ({
+                customer,
+                paymentId: p.id,
+                name: form.name,
+                lastName: form.lastName,
+                description: p.description,
+                invoiceUrl: p.invoiceUrl,
+                status: p.status,
+                valor: valorAtual,
+              }))
+            : [],
       };
 
       await sendData(payload);
@@ -131,14 +159,12 @@ function Form() {
       setForm({
         ...form,
         customer,
-        paymentId: lastPayment.id,
-        invoiceUrl: lastPayment.invoiceUrl,
-        status: lastPayment.status,
+        paymentId: lastPayment?.id || null,
+        invoiceUrl: lastPayment?.invoiceUrl || null,
+        status: lastPayment?.status || "ISENTO",
       });
 
-      setSnackbarMessage(
-        `Formulário enviado com sucesso!`
-      );
+      setSnackbarMessage(`Formulário enviado com sucesso!`);
       setSnackbarSeverity("success");
       setSnackbarOpen(true);
       setTimeout(() => navigate("/confirmacao"), 1200);
@@ -161,7 +187,6 @@ function Form() {
           subtitle={
             <>
               <div>Data: 14/02/2026 a 17/02/2026</div>
-              <div>Valor: R$ {valorAtual},00</div>
             </>
           }
         />
@@ -238,22 +263,26 @@ function Form() {
             value={form.phone}
             onChange={handleChange}
           />
-          <SelectField
-            label="Forma de Pagamento"
-            name="billingType"
-            value={form.billingType}
-            options={billingTypeOptions}
-            onChange={handleChange}
-          />
+          {form.age !== "0-5" && (
+            <>
+              <SelectField
+                label="Forma de Pagamento"
+                name="billingType"
+                value={form.billingType}
+                options={billingTypeOptions}
+                onChange={handleChange}
+              />
 
-          {form.billingType === "CREDIT_CARD" && (
-            <NumberSelectField
-              label={`Número de Parcelas (até ${maxInstallments}x)`}
-              name="installmentCount"
-              value={form.installmentCount}
-              options={installmentCountOptions}
-              onChange={handleChange}
-            />
+              {form.billingType === "CREDIT_CARD" && (
+                <NumberSelectField
+                  label={`Número de Parcelas (até ${maxInstallments}x)`}
+                  name="installmentCount"
+                  value={form.installmentCount}
+                  options={installmentCountOptions}
+                  onChange={handleChange}
+                />
+              )}
+            </>
           )}
           <CustomButton type="submit" isSubmitting={isSubmitting} fullWidth>
             Enviar
