@@ -1,11 +1,11 @@
-import axios from "axios";
-import dotenv from "dotenv";
+const axios = require("axios");
+const dotenv = require("dotenv");
 dotenv.config();
 
 const ASAAS_API = "https://api-sandbox.asaas.com/v3";
 const ASAAS_KEY = process.env.API_KEY_SAAS;
 
-export default class AsaasController {
+class AsaasController {
   static async createClient(req, res) {
     try {
       const response = await axios.post(`${ASAAS_API}/customers`, req.body, {
@@ -42,7 +42,6 @@ export default class AsaasController {
 
   static async listPayments(req, res) {
     const { customerId } = req.params;
-
     try {
       const response = await axios.get(`${ASAAS_API}/payments`, {
         headers: {
@@ -52,7 +51,6 @@ export default class AsaasController {
         },
         params: { customer: customerId },
       });
-
       res.json(response.data.data);
     } catch (err) {
       res
@@ -61,3 +59,5 @@ export default class AsaasController {
     }
   }
 }
+
+module.exports = AsaasController;

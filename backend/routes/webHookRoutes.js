@@ -1,11 +1,12 @@
-import { Router } from "express";
-import WebhookController from "../controllers/webhookController.js";
+const express = require("express");
+const WebhookController = require("../controllers/webhookController");
 
-const router = Router();
+const router = express.Router();
 
 router.get("/test", WebhookController.testWebhook);
 router.post("/received", WebhookController.paymentReceived);
 router.post("/confirmed", WebhookController.paymentConfirmed);
 router.post("/created", WebhookController.paymentCreated);
 
-export default router;
+module.exports = router;
+

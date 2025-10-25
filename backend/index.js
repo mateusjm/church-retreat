@@ -1,8 +1,8 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
+const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv");
 
-import routes from "./routes/index.js";
+const routes = require("./routes/index");
 
 dotenv.config();
 
@@ -17,5 +17,4 @@ if (process.env.NODE_ENV !== "production") {
   app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
 }
 
-export default app;
-
+module.exports = app;

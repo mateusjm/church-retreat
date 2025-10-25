@@ -1,9 +1,8 @@
-import axios from "axios";
-import dotenv from "dotenv";
-
+const axios = require("axios");
+const dotenv = require("dotenv");
 dotenv.config();
 
-export default class WebhookController {
+class WebhookController {
   static async paymentConfirmed(req, res) {
     const ASAASTOKEN = process.env.WEBHOOK_TOKEN || "";
     const token = req.headers["asaas-access-token"];
@@ -132,3 +131,5 @@ export default class WebhookController {
     res.status(200).send("Webhook ativo e aguardando POST");
   }
 }
+
+module.exports = WebhookController;

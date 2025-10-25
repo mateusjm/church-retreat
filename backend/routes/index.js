@@ -1,12 +1,12 @@
-import { Router } from "express";
-import asaasRoutes from "./asaasRoutes.js";
-import webHookRoutes from "./webHookRoutes.js";
-import timeRoutes from "./timeRoutes.js"; 
+const express = require("express");
+const asaasRoutes = require("./asaasRoutes");
+const webHookRoutes = require("./webHookRoutes");
+const timeRoutes = require("./timeRoutes");
 
-const router = Router();
+const router = express.Router();
 
 router.use("/asaas", asaasRoutes);
 router.use("/webhook", webHookRoutes);
-router.use("/time", timeRoutes); 
+router.use("/time", timeRoutes);
 
-export default router;
+module.exports = router;
