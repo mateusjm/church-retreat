@@ -3,8 +3,8 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 
-const GOOGLE_SHEET_URL =
-  "https://script.google.com/macros/s/AKfycbzOpFJiPuTl9Y8RNxiJw0WoicPA_4dQOyB4EyksGhMctxFMWsAuHitvNc7q_MESrNeTOQ/exec";
+// Pegando a variável de ambiente
+const GOOGLE_SHEET_URL = process.env.VITE_GOOGLE_SHEET_URL;
 
 export default defineConfig({
   plugins: [tailwindcss(), react()],
