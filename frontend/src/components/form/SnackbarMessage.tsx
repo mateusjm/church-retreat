@@ -1,6 +1,6 @@
-import React from "react";
+import React, { type FC } from "react";
 import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
+import MuiAlert, { type AlertProps } from "@mui/material/Alert";
 
 interface SnackbarMessageProps {
   open: boolean;
@@ -9,14 +9,14 @@ interface SnackbarMessageProps {
   severity?: "success" | "error" | "info" | "warning";
 }
 
-const Alert = React.forwardRef<HTMLDivElement>(function Alert(
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
   ref
 ) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export const SnackbarMessage: React.FC<SnackbarMessageProps> = ({
+export const SnackbarMessage: FC<SnackbarMessageProps> = ({
   open,
   onClose,
   message,

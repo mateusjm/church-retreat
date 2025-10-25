@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Form.module.css";
 import { CustomButton } from "@/components/form/CustomButton.tsx";
