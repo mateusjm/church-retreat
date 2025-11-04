@@ -2,7 +2,7 @@ const axios = require("axios");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const ASAAS_API = "https://api-sandbox.asaas.com/v3";
+const ASAAS_API = "https://api.asaas.com/v3";
 const ASAAS_KEY = process.env.API_KEY_SAAS;
 
 class AsaasController {
