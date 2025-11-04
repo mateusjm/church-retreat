@@ -22,9 +22,12 @@ export const useGoogleSheets = (cooldown = 2000) => {
     setSuccess(false);
 
     try {
-      console.log( "Enviando para Google Sheets:", data.sheetName, data);
+      console.log("Enviando para Google Sheets:", data.sheetName, data);
 
-      const res = await axios.post("/api", data, {
+      const isProd = import.meta.env.MODE === "production";
+      const endpoint = isProd ? import.meta.env.VITE_GOOGLE_SHEET_URL : "/api";
+
+      const res = await axios.post(endpoint, data, {
         headers: { "Content-Type": "application/json" },
       });
 
