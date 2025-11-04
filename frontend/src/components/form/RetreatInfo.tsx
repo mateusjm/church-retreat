@@ -19,8 +19,6 @@ export const RetreatInfo = () => {
         <br />
         <br />
         <strong>CARTÃO:</strong>
-        <br />até <strong>4x</strong> no cartão até{" "}
-        <strong>31/10/2025</strong>
         <br />até <strong>3x</strong> no cartão até{" "}
         <strong>31/11/2025</strong>
         <br />até <strong>2x</strong> no cartão até{" "}
