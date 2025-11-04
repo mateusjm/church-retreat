@@ -22,9 +22,7 @@ export const useGoogleSheets = (cooldown = 2000) => {
 
     try {
       console.log("Enviando para Google Sheets:", data);
-
-      // Sempre usa a URL do Apps Script
-      const endpoint = import.meta.env.VITE_GOOGLE_SHEET_URL;
+      const endpoint = `${import.meta.env.VITE_API_URL}/google-sheets/send`; 
 
       const res = await axios.post(endpoint, data, {
         headers: { "Content-Type": "application/json" },
