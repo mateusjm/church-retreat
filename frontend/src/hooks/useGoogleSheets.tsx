@@ -5,7 +5,6 @@ export const useGoogleSheets = (cooldown = 2000) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-
   const lastSent = useRef<number>(0);
 
   const sendData = async (data: any) => {
@@ -22,10 +21,10 @@ export const useGoogleSheets = (cooldown = 2000) => {
     setSuccess(false);
 
     try {
-      console.log("Enviando para Google Sheets:", data.sheetName, data);
+      console.log("Enviando para Google Sheets:", data);
 
-      const isProd = import.meta.env.MODE === "production";
-      const endpoint = isProd ? import.meta.env.VITE_GOOGLE_SHEET_URL : "/api";
+      // Sempre usa a URL do Apps Script
+      const endpoint = import.meta.env.VITE_GOOGLE_SHEET_URL;
 
       const res = await axios.post(endpoint, data, {
         headers: { "Content-Type": "application/json" },
