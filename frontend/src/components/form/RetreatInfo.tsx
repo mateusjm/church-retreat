@@ -14,8 +14,8 @@ export const RetreatInfo = () => {
         <br />
         <strong>FORMA DE PAGAMENTO:</strong> 
         <br />
-        PIX, dinheiro ou cartão, com
-        parcelamento em out, nov, dez e jan.
+        PIX, boleto ou cartão, com
+        parcelamento em nov, dez e jan.
         <br />
         <br />
         <strong>CARTÃO:</strong>
