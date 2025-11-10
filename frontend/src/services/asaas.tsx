@@ -2,11 +2,16 @@ import axios from "axios";
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export const asaas = {
-  createClient: async (name: string, cpfCnpj: string, email: string) => {
+  createClient: async (
+    name: string,
+    cpfCnpj: string,
+    email: string,
+    notificationDisabled: boolean = true
+  ) => {
     try {
       const response = await axios.post(
         `${VITE_API_URL}/asaas/customers`,
-        { name, cpfCnpj, email },
+        { name, cpfCnpj, email, notificationDisabled },
         {
           headers: {
             "Content-Type": "application/json",

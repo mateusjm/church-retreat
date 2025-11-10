@@ -107,7 +107,8 @@ function Form() {
         const customerResponse = await asaas.createClient(
           form.name,
           form.cpf,
-          form.email
+          form.email,
+          form.notificationDisabled
         );
         customer = customerResponse.id;
 
@@ -129,7 +130,7 @@ function Form() {
 
         allPayments = await asaas.listPayments(customer);
       }
-      
+
       const payload = {
         resumo: {
           ...form,
