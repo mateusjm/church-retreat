@@ -12,7 +12,7 @@ import asaas from "@/services/asaas";
 import { useFormContext } from "@/contexts/FormContext.tsx";
 import { RetreatInfo } from "@/components/form/RetreatInfo.tsx";
 import { getServerTime } from "@/services/serverTimeService.tsx";
-import { emailService } from "@/services/emailService.ts";
+import { emailService } from "@/services/emailService.tsx";
 
 function Form() {
   const [isSubmitting, setIsSubmitting] = useState(false);

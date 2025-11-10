@@ -9,7 +9,7 @@ function Confirmation() {
   return (
     <div className={styles.container}>
       <div className={styles.formWrapper}>
-        <FormHeader imageSrc="/retiro.png" title="" />
+        <FormHeader imageSrc="/retiro.jpeg" title="" />
         <div className={styles.form} style={{ textAlign: "center" }}>
           <h2>Obrigado! Sua inscrição foi finalizada. 🎉</h2>
 
