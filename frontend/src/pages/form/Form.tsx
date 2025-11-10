@@ -12,6 +12,7 @@ import asaas from "@/services/asaas";
 import { useFormContext } from "@/contexts/FormContext.tsx";
 import { RetreatInfo } from "@/components/form/RetreatInfo.tsx";
 import { getServerTime } from "@/services/serverTimeService.tsx";
+import { emailService } from "@/services/emailService.ts";
 
 function Form() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -127,6 +128,14 @@ function Form() {
           paymentPayload.installmentCount ?? null,
           paymentPayload.totalValue ?? paymentPayload.value
         );
+
+        if (lastPayment?.invoiceUrl) {
+          await emailService.sendInvoiceEmail(
+            form.name,
+            form.email,
+            lastPayment.invoiceUrl
+          );
+        }
 
         allPayments = await asaas.listPayments(customer);
       }
