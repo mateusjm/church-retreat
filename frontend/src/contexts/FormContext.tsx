@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import type { ReactNode } from "react"; 
+import type { ReactNode } from "react";
 
 type FormData = {
   customer: string;
@@ -20,6 +20,7 @@ type FormData = {
   description: string;
   invoiceUrl: string;
   status: string;
+  notificationDisabled: boolean;
 };
 
 type FormContextType = {
@@ -50,6 +51,7 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
     description: "",
     invoiceUrl: "",
     status: "",
+    notificationDisabled: true,
   });
 
   const setForm = (data: Partial<FormData>) => {
@@ -76,6 +78,7 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
       description: "",
       invoiceUrl: "",
       status: "",
+      notificationDisabled: true,
     });
   };
 
