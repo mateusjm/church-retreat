@@ -34,6 +34,7 @@ class WebhookController {
             invoiceUrl: payment.invoiceUrl,
             status: "CONFIRMED",
             paymentId: payment.id,
+            billingType: payment.billingType
           },
           {
             headers: {
@@ -106,6 +107,7 @@ class WebhookController {
             invoiceUrl: payment.invoiceUrl,
             status: "RECEIVED",
             paymentId: payment.id,
+            billingType: payment.billingType
           },
           {
             headers: {
