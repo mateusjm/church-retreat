@@ -8,7 +8,7 @@ export const RetreatInfo = () => {
         <br />
         1º LOTE: até 31/12/2025 – R$ 250,00
         <br />
-        2º LOTE: a partir de 01/01/2026 –{" "}
+        2º LOTE: 01/01/2026 –{" "}
         R$ 300,00
         <br />
         <br />
