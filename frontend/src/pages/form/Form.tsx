@@ -195,7 +195,7 @@ function Form() {
           imageSrc="/retiro.jpeg"
           title="Inscrição Retiro Ponte Nova - 2026"
           subtitle={<p>Data: 14/02/2026 a 17/02/2026</p>}
-          alertMessage="Por favor, não crie uma nova cobrança, a menos que deseje alterar a forma de pagamento. Caso tenha perdido o link da cobrança anterior, verifique seu e-mail, pois ele já foi enviado para o endereço cadastrado."
+          alertMessage="Por favor, não crie uma nova cobrança, a menos que deseje alterar a forma de pagamento. Caso tenha perdido o link da cobrança anterior, verifique seu e-mail, pois ele já foi enviado para o endereço cadastrado ou entre contato conosco."
         />
         <RetreatInfo />
         <form onSubmit={handleSubmit} className={styles.form}>
