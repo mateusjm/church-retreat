@@ -1,18 +1,18 @@
+import { CustomButton } from "@/components/form/CustomButton.tsx";
+import { FormHeader } from "@/components/form/FormHeader.tsx";
+import { InputField } from "@/components/form/InputField.tsx";
+import { NumberSelectField } from "@/components/form/NumberSelectField.tsx";
+import { RetreatInfo } from "@/components/form/RetreatInfo.tsx";
+import { SelectField } from "@/components/form/SelectField.tsx";
+import { SnackbarMessage } from "@/components/form/SnackbarMessage.tsx";
+import { useFormContext } from "@/contexts/FormContext.tsx";
+import { useGoogleSheets } from "@/hooks/useGoogleSheets.tsx";
+import asaas from "@/services/asaas";
+import { emailService } from "@/services/emailService.tsx";
+import { getServerTime } from "@/services/serverTimeService.tsx";
 import { type FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Form.module.css";
-import { CustomButton } from "@/components/form/CustomButton.tsx";
-import { InputField } from "@/components/form/InputField.tsx";
-import { SelectField } from "@/components/form/SelectField.tsx";
-import { FormHeader } from "@/components/form/FormHeader.tsx";
-import { useGoogleSheets } from "@/hooks/useGoogleSheets.tsx";
-import { SnackbarMessage } from "@/components/form/SnackbarMessage.tsx";
-import { NumberSelectField } from "@/components/form/NumberSelectField.tsx";
-import asaas from "@/services/asaas";
-import { useFormContext } from "@/contexts/FormContext.tsx";
-import { RetreatInfo } from "@/components/form/RetreatInfo.tsx";
-import { getServerTime } from "@/services/serverTimeService.tsx";
-import { emailService } from "@/services/emailService.tsx";
 
 function Form() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -194,11 +194,8 @@ function Form() {
         <FormHeader
           imageSrc="/retiro.jpeg"
           title="Inscrição Retiro Ponte Nova - 2026"
-          subtitle={
-            <>
-              <div>Data: 14/02/2026 a 17/02/2026</div>
-            </>
-          }
+          subtitle={<p>Data: 14/02/2026 a 17/02/2026</p>}
+          alertMessage="Por favor, não crie uma nova cobrança, a menos que deseje alterar a forma de pagamento. Caso tenha perdido o link da cobrança anterior, verifique seu e-mail, pois ele já foi enviado para o endereço cadastrado."
         />
         <RetreatInfo />
         <form onSubmit={handleSubmit} className={styles.form}>

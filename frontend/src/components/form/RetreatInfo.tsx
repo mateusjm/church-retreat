@@ -4,7 +4,7 @@ export const RetreatInfo = () => {
   return (
     <div className={styles.infoSection}>
       <p>
-        <strong>É IMPORTANTE RESSALTAR QUE O VALOR DO RETIRO É:</strong>
+        <strong>VALOR DO RETIRO:</strong>
         <br />
         1º LOTE: até 31/12/2025 – R$ 250,00
         <br />
