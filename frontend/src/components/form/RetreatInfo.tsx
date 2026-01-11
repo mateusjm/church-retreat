@@ -23,7 +23,7 @@ export const RetreatInfo = () => {
         <strong>30/11/2025</strong>
         <br />até <strong>2x</strong> no cartão até{" "}
         <strong>31/12/2025</strong>
-        <br /><strong>1x</strong> no cartão até <strong>10/02/2026</strong>
+        <br /><strong>1x</strong> no cartão até <strong>01/02/2026</strong>
         <br />
         <br />
         <strong>DATAS DO RETIRO:</strong>
