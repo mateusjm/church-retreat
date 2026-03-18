@@ -4,7 +4,7 @@ import { FormHeader } from "@/components/form/FormHeader.tsx";
 
 function Confirmation() {
   const { form } = useFormContext();
-  const isIsento = form.age === "0-5";
+  const isIsento = form.age === "0-5"; 
 
   return (
     <div className={styles.container}>
