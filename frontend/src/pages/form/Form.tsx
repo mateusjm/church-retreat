@@ -27,7 +27,7 @@ function Form() {
   const ageGroupOptions = ["4-6", "7-9", "10-12", "Não se aplica"];
   const lodgingOptions = ["Barraca", "Alojamento", "Casa própria"];
   const ageOptions = ["0-5", "6-11", "12-14", "15-75", "75+"];
-  const billingTypeOptions = ["UNDEFINED", "PIX"];
+  const billingTypeOptions = ["UNDEFINED", "PIX", "BOLETO"];
 
   const monthInstallmentsMap: Record<number, number> = {
     10: 4,
@@ -194,7 +194,7 @@ function Form() {
         <FormHeader
           imageSrc="/retiro.jpeg"
           title="Inscrição Retiro Ponte Nova - 2026"
-          subtitle={<p>Data: 14/02/2026 a 17/02/2026</p>}
+          subtitle={<p>Data: 30/04/2026 a 03/05/2026</p>}
           alertMessage="Por favor, não crie uma nova cobrança, a menos que deseje alterar a forma de pagamento. Caso tenha perdido o link da cobrança anterior, verifique seu e-mail, pois ele já foi enviado para o endereço cadastrado ou entre contato conosco."
         />
         <RetreatInfo />
