@@ -27,7 +27,7 @@ function Form() {
   const ageGroupOptions = ["4-6", "7-9", "10-12", "Não se aplica"];
   const lodgingOptions = ["Barraca", "Alojamento", "Casa própria"];
   const ageOptions = ["0-5", "6-11", "12-14", "15-75", "75+"];
-  const billingTypeOptions = ["UNDEFINED", "BOLETO", "CREDIT_CARD", "PIX"];
+  const billingTypeOptions = ["UNDEFINED", "PIX"];
 
   const monthInstallmentsMap: Record<number, number> = {
     10: 4,
